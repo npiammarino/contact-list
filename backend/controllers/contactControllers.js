@@ -1,5 +1,9 @@
+const lists= require('../contactLists.json')
+
 const getContacts= (req, res) => {
-  res.status(200).json({message: "Get Contacts"})
+  const list= req.params.list
+  res.json(lists[list])
+
 }
 
 const addContact= (req, res) => {
