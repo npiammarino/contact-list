@@ -11,15 +11,19 @@ const App= () => {
   const [editing, setEditing] = useState(false)
 
   const fetchContacts= async () => {
-    const res= await fetch(`http://localhost:5000/contacts`)
+    console.log('effect triggered');
+    const res= await fetch(`http://localhost:3000/contacts/contacts`)
+    console.log('responce recieved');
     const data= await res.json()
+    console.log(data)
     return data
   }
+
   useEffect(() => {
     const getContacts = async () => {
       const contactsFromServer= await fetchContacts()
       setContacts(contactsFromServer)
-      if(selected=='init'){setSelected(contactsFromServer[0])}
+      if(selected==='init'){setSelected(contactsFromServer[0])}
     }
     getContacts()
   }, [])
@@ -59,7 +63,7 @@ const App= () => {
   const removeContact= async () => {
     const toRemove= selected.id
     const ind= contacts.indexOf(selected)
-    const remIndex= (ind == contacts.length - 1 ? ind -1 : ind)
+    const remIndex= (ind === contacts.length - 1 ? ind -1 : ind)
     const newContacts= contacts.filter(x => x.id !== toRemove)
     const newSelected= newContacts[remIndex]
     await fetch(`http://localhost:5000/contacts/${toRemove}`, {method: 'DELETE'})
