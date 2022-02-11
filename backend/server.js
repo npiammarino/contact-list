@@ -8,6 +8,6 @@ const app= express()
 
 connectDB()
 
-app.use('/contacts', require('./routes/contactRoutes'))
+app.use('/api/contacts', require('./routes/contactRoutes'))
 
 app.listen(port, () => console.log(`Server open on port ${port}`))
