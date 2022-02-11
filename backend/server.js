@@ -1,8 +1,12 @@
 const express= require('express')
 const dotenv= require('dotenv').config()
+const colors= require('colors')
+const connectDB= require('./config/db')
 
 const port= process.env.SERVER_PORT
 const app= express()
+
+connectDB()
 
 app.use('/contacts', require('./routes/contactRoutes'))
 
