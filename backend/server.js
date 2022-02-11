@@ -9,9 +9,10 @@ const app= express()
 
 connectDB()
 
-app.use(errorHandler)
+//these execute in order
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 app.use('/api/contacts', require('./routes/contactRoutes'))
+app.use(errorHandler)
 
 app.listen(port, () => console.log(`Server open on port ${port}`))

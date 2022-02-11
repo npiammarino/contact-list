@@ -7,6 +7,10 @@ const getContacts= asyncHandler (async (req, res) => {
 })
 
 const addContact= asyncHandler (async (req, res) => {
+  if(Object.keys(req.body).length === 0){
+    res.status(400)
+    throw new Error("Please include contact information")
+  }
 
   const contact= await Contact.create({
     firstName: req.body.firstName,
@@ -20,17 +24,33 @@ const addContact= asyncHandler (async (req, res) => {
     zip: req.body.zip,
   })
 
-  res.status(200).json(contact)
+  res.status(201).json(contact)
 })
 
 const updateContact= asyncHandler (async (req, res) => {
-  console.log('init');
+  const contact= await Contact.findById(req.params.id)
+
+  if(!contact){
+    res.status(400)
+    throw new Error("No such contact found")
+  }
+
+  if(Object.keys(req.body).length === 0){
+    res.status(400)
+    throw new Error("Please include novel contact information")
+  }
+
   const updatedContact= await Contact.findByIdAndUpdate(req.params.id, req.body, {new: true})
-  console.log('updated');
   res.status(200).json(updatedContact)
 })
 
 const removeContact= asyncHandler (async (req, res) => {
+  const contact= await Contact.findById(req.params.id)
+
+  if(!contact){
+    res.status(400)
+    throw new Error("No such contact found")
+  }
   const deletedContact= await Contact.findByIdAndRemove(req.params.id)
   res.status(200).json(deletedContact)
 })
