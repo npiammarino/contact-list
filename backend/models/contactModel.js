@@ -1,6 +1,6 @@
 const mongoose= require('mongoose')
 
-const contactSchema= (
+const contactSchema= mongoose.Schema(
   {
     firstName: String,
     lastName: String,
@@ -13,8 +13,8 @@ const contactSchema= (
     zip: String
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 )
 
-module.exports mongoose.model('Contact', contactSchema)
+module.exports= mongoose.model('Contact', contactSchema)
