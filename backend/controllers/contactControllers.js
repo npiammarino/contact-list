@@ -7,11 +7,7 @@ const getContacts= asyncHandler (async (req, res) => {
 })
 
 const addContact= asyncHandler (async (req, res) => {
-  console.log("message received")
   const contact= req.body
-  console.log("contact created");
-  console.log(JSON.stringify(contact))
-  console.log(Object.keys(contact).length)
   if(Object.keys(contact).length === 0){
     res.status(400)
     throw new Error("Please include contact information")

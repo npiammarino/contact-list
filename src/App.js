@@ -32,7 +32,6 @@ const App= () => {
     setSelected(contact)
   }
   const addContact= async (contact) => {
-    console.log(JSON.stringify(contact))
 
     const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/`, {
       method : 'POST',
@@ -43,7 +42,6 @@ const App= () => {
     })
 
     const data= await res
-    console.log(data)
     // const setList= async () => {
     //
     // }
