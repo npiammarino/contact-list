@@ -4,8 +4,10 @@ const ContactList= ({contacts, onSelect, editing, selected}) => {
 
   const onChange= async (e) => {
     e.preventDefault()
-    const newId= parseInt(e.target.value)
-    const newSelected= contacts.find(x => x.id === newId)
+    const newId= e.target.value
+    console.log(newId)
+    const newSelected= contacts.find(x => x._id === newId)
+    console.log(newSelected)
     onSelect(newSelected)
   }
 
@@ -14,14 +16,14 @@ const ContactList= ({contacts, onSelect, editing, selected}) => {
   return(
     <div>
       <select
-        value={selected.id}
+        value={selected._id}
         size='12'
         className='contactList'
         onChange={onChange}
         disabled={editing ? true : null}
       >
         {contacts.map((contact) => (
-          <option key={contact.id} value={contact.id}>
+          <option key={contact._id} value={contact._id}>
             {
               contact.lastName +
               (contact.firstName ? ", " : "") +

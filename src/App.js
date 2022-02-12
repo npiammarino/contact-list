@@ -4,6 +4,7 @@ import Button from './components/Button'
 import {v4 as uuid} from 'uuid'
 import {useState, useEffect} from 'react'
 
+
 const App= () => {
   //initialize contact list
   const [contacts, setContacts] = useState()
@@ -11,7 +12,8 @@ const App= () => {
   const [editing, setEditing] = useState(false)
 
   const fetchContacts= async () => {
-    const res= await fetch(`http://localhost:3000/contacts/contacts`)
+    //const port= process.env.REACT_APP_SERVER_PORT  <how to get this?>
+    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`)
     const data= await res.json()
     return data
   }
@@ -20,31 +22,36 @@ const App= () => {
     const getContacts = async () => {
       const contactsFromServer= await fetchContacts()
       setContacts(contactsFromServer)
-      if(selected==='init'){setSelected(contactsFromServer[0])}
+      if(selected === 'init'){setSelected(contactsFromServer[0])}
     }
     getContacts()
+
   }, [])
 
   const selectContact= (contact) => {
-    console.log(contact);
     setSelected(contact)
   }
   const addContact= async (contact) => {
-    const setList= async () => {
-      fetch(`http://localhost:3000/contacts/contacts`, {
-        method : 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(contact),
-      })
-    }
-    const data= await setList()
-    const id= uuid()
-    const newContact= {id: id, ...data}
-    console.log(newContact)
-    setContacts([...contacts, newContact])
-    setSelected(newContact)
+    console.log(JSON.stringify(contact))
+
+    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/`, {
+      method : 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(contact),
+    })
+
+    const data= await res
+    console.log(data)
+    // const setList= async () => {
+    //
+    // }
+    // const data= await setList()
+    // const newContact= data
+    // console.log(newContact)
+    // setContacts([...contacts, newContact])
+    // setSelected(newContact)
   }
   const updateContact= (contact) => {
       const id= selected.id

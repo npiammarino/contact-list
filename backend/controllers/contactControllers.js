@@ -7,24 +7,28 @@ const getContacts= asyncHandler (async (req, res) => {
 })
 
 const addContact= asyncHandler (async (req, res) => {
-  if(Object.keys(req.body).length === 0){
+  console.log("message received")
+  const contact= req.body
+  console.log("contact created");
+  console.log(JSON.stringify(contact))
+  console.log(Object.keys(contact).length)
+  if(Object.keys(contact).length === 0){
     res.status(400)
     throw new Error("Please include contact information")
   }
-
-  const contact= await Contact.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    companyName: req.body.companyName,
-    phone: req.body.phone,
-    email: req.body.email,
-    address: req.body.address,
-    city: req.body.city,
-    state: req.body.state,
-    zip: req.body.zip,
+  const newContact= await Contact.create({
+    firstName: contact.firstName,
+    lastName: contact.lastName,
+    companyName: contact.companyName,
+    phone: contact.phone,
+    email: contact.email,
+    address: contact.address,
+    city: contact.city,
+    state: contact.state,
+    zip: contact.zip,
   })
 
-  res.status(201).json(contact)
+  res.status(201).json(newContact)
 })
 
 const updateContact= asyncHandler (async (req, res) => {
