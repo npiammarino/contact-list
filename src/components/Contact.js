@@ -5,9 +5,7 @@ const ContactList= ({contacts, onSelect, editing, selected}) => {
   const onChange= async (e) => {
     e.preventDefault()
     const newId= e.target.value
-    console.log(newId)
     const newSelected= contacts.find(x => x._id === newId)
-    console.log(newSelected)
     onSelect(newSelected)
   }
 

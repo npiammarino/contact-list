@@ -30,7 +30,6 @@ const App= () => {
   const selectContact= (contact) => {
     setSelected(contact)
   }
-
   const addContact= async (contact) => {
     const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/`, {
       method : 'POST',
@@ -43,24 +42,38 @@ const App= () => {
     const newContact= await res.json()
     setSelected(newContact)
   }
+  const updateContact= async (contact) => {
+      const id= selected._id
+      console.log(id)
+      // const newContact= {id,...contact}
+      // const newContacts= contacts.filter(x => x.id !== id)
+      console.log(JSON.stringify(contact));
+      const res= await fetch(
+        `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
+          method : 'PUT',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(contact),
+      })
 
-  const updateContact= (contact) => {
-      const id= selected.id
-      const newContact= {id,...contact}
-      const newContacts= contacts.filter(x => x.id !== id)
-      setContacts([...newContacts, newContact])
+      const newContact= await res.json()
       setSelected(newContact)
       setEditing(false)
   }
   const removeContact= async () => {
-    const toRemove= selected.id
-    const ind= contacts.indexOf(selected)
-    const remIndex= (ind === contacts.length - 1 ? ind -1 : ind)
-    const newContacts= contacts.filter(x => x.id !== toRemove)
-    const newSelected= newContacts[remIndex]
-    await fetch(`http://localhost:5000/contacts/${toRemove}`, {method: 'DELETE'})
-    setContacts(newContacts)
-    setSelected(newSelected)
+    const id= selected._id
+    //determine next contact to select
+    const remove= contacts.filter(x => x._id === id)[0]
+    const ind= contacts.indexOf(remove)
+    const setIndex= (ind === 0 ? 1 : ind-1)
+    const newSelected= contacts[setIndex]
+
+    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
+      method : 'DELETE',
+    })
+
+    res.then(setSelected(newSelected))
   }
   const toggleEdit= () => {
     setEditing(!editing)

@@ -51,8 +51,10 @@ const removeContact= asyncHandler (async (req, res) => {
     res.status(400)
     throw new Error("No such contact found")
   }
-  const deletedContact= await Contact.findByIdAndRemove(req.params.id)
-  res.status(200).json(deletedContact)
+
+  await contact.remove()
+  
+  res.status(200).json(contact)
 })
 
 module.exports= {getContacts, addContact, updateContact, removeContact}
