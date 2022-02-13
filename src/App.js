@@ -1,7 +1,6 @@
 import {ContactList, AddContact, DisplayContact} from './components/Contact'
 //import './index.css'
 import Button from './components/Button'
-import {v4 as uuid} from 'uuid'
 import {useState, useEffect} from 'react'
 
 
@@ -26,13 +25,13 @@ const App= () => {
     }
     getContacts()
 
-  }, [])
+  }, [selected])
 
   const selectContact= (contact) => {
     setSelected(contact)
   }
-  const addContact= async (contact) => {
 
+  const addContact= async (contact) => {
     const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/`, {
       method : 'POST',
       headers: {
@@ -41,16 +40,10 @@ const App= () => {
       body: JSON.stringify(contact),
     })
 
-    const data= await res
-    // const setList= async () => {
-    //
-    // }
-    // const data= await setList()
-    // const newContact= data
-    // console.log(newContact)
-    // setContacts([...contacts, newContact])
-    // setSelected(newContact)
+    const newContact= await res.json()
+    setSelected(newContact)
   }
+
   const updateContact= (contact) => {
       const id= selected.id
       const newContact= {id,...contact}
