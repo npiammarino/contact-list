@@ -19,8 +19,6 @@ const addUser= asyncHandler (async (req, res) => {
   //hash password
   const salt= await bcrypt.genSalt(10)
   const hashedPW= await bcrypt.hash(password, salt)
-
-  console.log(hashedPW)
   const user= await User.create({
     username,
     password: hashedPW
@@ -40,6 +38,21 @@ const addUser= asyncHandler (async (req, res) => {
 })
 
 const loginUser= asyncHandler (async (req, res) => {
+  const input= req.body
+  const user= await User.findOne({username: input.username})
+  if(!user){
+    res.status(400)
+    throw new Error("User not found")
+  }
+
+  const verify= await bcrypt.compare(input.password, user.password)
+
+  if(!verify){
+    res.status(400)
+    throw new Error("Invalid password")
+  }
+
+  res.status(200).json({message: user._id})
 
 })
 
