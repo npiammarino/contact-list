@@ -58,8 +58,7 @@ const loginUser= asyncHandler (async (req, res) => {
 })
 
 const getUserData= asyncHandler (async (req,res) => {
-  const user = await User.findById(req.body.id)
-  console.log(user._id)
+  const user = await User.findById(req.user.id)
   if(!user){
     res.status(400)
     throw new Error("User not found")
