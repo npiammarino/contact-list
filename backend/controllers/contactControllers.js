@@ -13,6 +13,7 @@ const addContact= asyncHandler (async (req, res) => {
     throw new Error("Please include contact information")
   }
   const newContact= await Contact.create({
+    user: req.user.id,
     firstName: contact.firstName,
     lastName: contact.lastName,
     companyName: contact.companyName,

@@ -1,6 +1,7 @@
 const User= require('../models/userModel')
 const asyncHandler= require('express-async-handler')
 const bcrypt= require('bcryptjs')
+const jwt= require('jsonwebtoken')
 
 const addUser= asyncHandler (async (req, res) => {
   const {username, password}= req.body
@@ -21,13 +22,13 @@ const addUser= asyncHandler (async (req, res) => {
   const hashedPW= await bcrypt.hash(password, salt)
   const user= await User.create({
     username,
-    password: hashedPW
+    password: hashedPW,
   })
 
   if(user){
     res.status(201).json({
       id: user._id,
-      name: user.username
+      token: generateToken(user._id),
     })
   } else {
     res.status(400)
@@ -52,11 +53,29 @@ const loginUser= asyncHandler (async (req, res) => {
     throw new Error("Invalid password")
   }
 
-  res.status(200).json({message: user._id})
+  res.status(200).json({token: generateToken(user._id)})
 
 })
 
+const getUserData= asyncHandler (async (req,res) => {
+  const user = await User.findById(req.body.id)
+  console.log(user._id)
+  if(!user){
+    res.status(400)
+    throw new Error("User not found")
+  }
+
+  res.status(200).json(user)
+})
+
+const generateToken= (id) => {
+  return jwt.sign({id}, process.env.JWT_SECRET, {
+    expiresIn:'10d',
+  })
+}
+
 module.exports= {
   addUser,
-  loginUser
+  loginUser,
+  getUserData,
 }

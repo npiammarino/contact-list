@@ -1,5 +1,18 @@
 The purpose of the project is to learn the MERN stack.  Following courses from Traversy Media.
 
+Should separate server and client?
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
