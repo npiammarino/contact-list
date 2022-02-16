@@ -9,10 +9,16 @@ const App= () => {
   const [contacts, setContacts] = useState()
   const [selected, setSelected] = useState('init')
   const [editing, setEditing] = useState(false)
+  const [userToken, setUserToken]= useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGQ0YjU0NzIyZWNmNWI1NzYyMGM2NSIsImlhdCI6MTY0NTA0MTkyMSwiZXhwIjoxNjQ1OTA1OTIxfQ.1iN6x8TxfiH1sELrYcJX5phUt1i-vkRamTmAg9r1Vb8')
+  // const [userToken, setUserToken]= useState('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGQ2MTYzMTIxNjJjMGM5OWIwNDkzNiIsImlhdCI6MTY0NTA0NDA2NywiZXhwIjoxNjQ1OTA4MDY3fQ.UIsjCWEzjx6K83re0pn0tHMMy8eH5t0SU7b1kYuZSfw')
 
   const fetchContacts= async () => {
     //const port= process.env.REACT_APP_SERVER_PORT  <how to get this?>
-    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`)
+    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts`, {
+      headers: {
+        'authorization': `Bearer ${userToken}`,
+      }
+    })
     const data= await res.json()
     return data
   }
@@ -25,7 +31,7 @@ const App= () => {
     }
     getContacts()
 
-  }, [selected])
+  }, [selected, fetchContacts])
 
   const selectContact= (contact) => {
     setSelected(contact)
@@ -35,6 +41,7 @@ const App= () => {
       method : 'POST',
       headers: {
         'Content-type': 'application/json',
+        'authorization': `Bearer ${userToken}`,
       },
       body: JSON.stringify(contact),
     })
@@ -44,15 +51,12 @@ const App= () => {
   }
   const updateContact= async (contact) => {
       const id= selected._id
-      console.log(id)
-      // const newContact= {id,...contact}
-      // const newContacts= contacts.filter(x => x.id !== id)
-      console.log(JSON.stringify(contact));
       const res= await fetch(
         `http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
           method : 'PUT',
           headers: {
             'Content-type': 'application/json',
+            'authorization': `Bearer ${userToken}`,
           },
           body: JSON.stringify(contact),
       })
@@ -69,11 +73,13 @@ const App= () => {
     const setIndex= (ind === 0 ? 1 : ind-1)
     const newSelected= contacts[setIndex]
 
-    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
+    await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
       method : 'DELETE',
-    })
+      headers: {
+        'authorization': `Bearer ${userToken}`,
+      }
+    }).then(setSelected(newSelected))
 
-    res.then(setSelected(newSelected))
   }
   const toggleEdit= () => {
     setEditing(!editing)

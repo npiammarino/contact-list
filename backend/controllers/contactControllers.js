@@ -2,7 +2,7 @@ const Contact= require('../models/contactModel')
 const asyncHandler= require('express-async-handler')
 
 const getContacts= asyncHandler (async (req, res) => {
-  const contacts= await Contact.find({})
+  const contacts= await Contact.find({user: req.user.id})
   res.status(200).json(contacts)
 })
 
@@ -41,7 +41,18 @@ const updateContact= asyncHandler (async (req, res) => {
     throw new Error("Please include novel contact information")
   }
 
-  const updatedContact= await Contact.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  if(contact.user.valueOf() !== req.user.id){
+    res.status(400)
+    throw new Error("Not authorized to edit this contact")
+  }
+
+  const updatedContact= await contact.updateOne(req.body)
+
+  if(!updatedContact){
+    res.status(400)
+    throw new Error("Problem updating in database")
+  }
+
   res.status(200).json(updatedContact)
 })
 
@@ -53,9 +64,19 @@ const removeContact= asyncHandler (async (req, res) => {
     throw new Error("No such contact found")
   }
 
-  await contact.remove()
+  if(contact.user.valueOf() !== req.user.id){
+    res.status(400)
+    throw new Error("Not authorized to edit this contact")
+  }
 
-  res.status(200).json(contact)
+  const deleted=  await Contact.deleteOne(contact)
+
+  if(!deleted){
+    res.status(400)
+    throw new Error("Error removing contact")
+  }
+
+  res.status(200).json(deleted)
 })
 
 module.exports= {getContacts, addContact, updateContact, removeContact}
