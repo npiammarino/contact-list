@@ -1,6 +1,8 @@
-import {ContactList, AddContact, DisplayContact} from './components/Contact'
-//import './index.css'
+import './index.css'
 import Button from './components/Button'
+import ContactList from './components/contact/ContactList'
+import DisplayContact from './components/contact/DisplayContact'
+import AddContact from './components/contact/AddForm'
 import {useState, useEffect} from 'react'
 
 

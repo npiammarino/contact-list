@@ -1,59 +1,5 @@
 import {useState} from 'react'
 
-const ContactList= ({contacts, onSelect, editing, selected}) => {
-
-  const onChange= (e) => {
-    e.preventDefault()
-    const newId= e.target.value
-    const newSelected= contacts.find(x => x._id === newId)
-    onSelect(newSelected)
-  }
-
-  if(!contacts || !selected){return null}
-
-  return(
-    <div>
-      <select
-        value={selected._id}
-        size='12'
-        className='contactList'
-        onChange={onChange}
-        disabled={editing ? true : null}
-      >
-        {contacts.map((contact) => (
-          <option key={contact._id} value={contact._id}>
-            {
-              contact.lastName +
-              (contact.firstName ? ", " : "") +
-              contact.firstName
-            }
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
-
-const DisplayContact = ({contact}) => {
-
-  if(!contact){return null}
-
-  return(
-    <div className='contact'>
-      <h3>Contact:  {contact.firstName + (contact.firstName ? " " : "") + contact.lastName}</h3>
-      <h3>
-        Company Name: {(contact.companyName ? contact.companyName : " NA")}
-      </h3>
-      <h3>Phone:  {contact.phone}</h3>
-      <h3>Email:  {contact.email}</h3>
-      <h3>Street Address:  {(contact.address && contact.city && contact.state && contact.zip ?
-          contact.address + " " + contact.city + " " + contact.state + " " + contact.zip :
-          '  **incomplete**')}
-      </h3>
-    </div>
-  )
-}
-
 const AddContact= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
   const [firstName, setFirstName]= useState('')
   const [lastName, setLastName]= useState('')
@@ -236,5 +182,4 @@ const AddContact= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
   )
 }
 
-export {ContactList, AddContact, DisplayContact}
-//<input type='submit' value= 'Save Contact' className='button btn-block' />
+export default AddContact
