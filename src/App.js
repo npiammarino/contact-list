@@ -31,7 +31,7 @@ const App= () => {
     }
     getContacts()
 
-  }, [selected, fetchContacts])
+  },[selected])
 
   const selectContact= (contact) => {
     setSelected(contact)
@@ -68,17 +68,17 @@ const App= () => {
   const removeContact= async () => {
     const id= selected._id
     //determine next contact to select
-    const remove= contacts.filter(x => x._id === id)[0]
+    const remove= contacts.find(x => x._id === id)
     const ind= contacts.indexOf(remove)
     const setIndex= (ind === 0 ? 1 : ind-1)
     const newSelected= contacts[setIndex]
 
-    await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
+    fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/contacts/${id}`, {
       method : 'DELETE',
       headers: {
         'authorization': `Bearer ${userToken}`,
       }
-    }).then(setSelected(newSelected))
+    }).then(res => setSelected(newSelected))
 
   }
   const toggleEdit= () => {

@@ -2,7 +2,7 @@ import {useState} from 'react'
 
 const ContactList= ({contacts, onSelect, editing, selected}) => {
 
-  const onChange= async (e) => {
+  const onChange= (e) => {
     e.preventDefault()
     const newId= e.target.value
     const newSelected= contacts.find(x => x._id === newId)
