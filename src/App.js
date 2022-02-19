@@ -1,21 +1,22 @@
 import './index.css'
-import{useState} from 'react'
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {useState} from 'react'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Header from './components/Header'
+import Login from './pages/Login'
 
 const App= () => {
-  const [user, setUser]= useState("Fillis")
+  const [user, setUser]= useState('kljlk')
 
   return(
     <>
-      <div className="container">
-        <Router>
-          <Header user={user}/>
-          <div id= "main">
-
-          </div>
-        </Router>
-      </div>
+      <Router>
+        <Header user={user}/>
+        <div id= "main">
+          <Routes>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </div>
+      </Router>
     </>
   )
 }

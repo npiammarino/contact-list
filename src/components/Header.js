@@ -1,7 +1,13 @@
-import useState from 'react'
+
 import {FaSignInAlt, FaSignOutAlt, FaUser, FaRegAddressBook} from 'react-icons/fa'
+import {useNavigate} from 'react-router-dom'
 
 const Header= ({user}) => {
+  const navigate= useNavigate()
+
+  const onLogin= () => {
+    navigate('/login')
+  }
 
   return(
       <header id="header">
@@ -23,7 +29,7 @@ const Header= ({user}) => {
             <div className="center-split">
               <h2>Login or register to begin</h2>
             </div>
-            <button className="btn" onClick="">
+            <button className="btn" onClick={onLogin}>
               <FaSignInAlt /> Login
             </button>
             <button className="btn" onClick="">

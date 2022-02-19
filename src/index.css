@@ -30,7 +30,7 @@ body{
 }
 
 #header button:hover{
-  scale: 90%;
+  scale: 95%;
 }
 
 #header button:active{
@@ -60,4 +60,39 @@ body{
   height: 100vh;
   background-size:cover;
   background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: #f4f4f4;
+  width: 25vw;
+  min-width: 500px;
+  padding: 20px 0;
+  border-radius: 20px;
+  border-style: solid;
+  border-width: 8px;
+  border-color: #e83a3a;
+  margin-bottom: 25vh;
+}
+
+.login-container h1{
+  text-align: center;
+}
+.login-form{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+}
+
+.login-form .form-control{
+  display: block;
+  font-size: 30px;
+  width:80%;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #a6a6a6;
+  border-radius: 15px;
 }
