@@ -12,6 +12,10 @@ body{
   line-height: 1.6;
 }
 
+button:active{
+  scale: 95%;
+}
+
 .container{
   width:100%;
   text-align: center;
@@ -30,10 +34,6 @@ body{
 }
 
 #header button:hover{
-  scale: 95%;
-}
-
-#header button:active{
   color: #e83a3a;
 }
 
@@ -48,7 +48,7 @@ body{
   color: #f4f4f4;
   border:0;
   margin:0 30px;
-  font-size: 3em;
+  font-size: 2em;
 }
 
 .header-control .center-split {
@@ -80,16 +80,33 @@ body{
 .login-container h1{
   text-align: center;
 }
+
 .login-form{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction:column;
+  font-size: 17px;
+}
+
+.login-form .btn {
+  width: 80%;
+  font: inherit;
+  border-radius: 15px;
+  background: #000;
+  color: #f4f4f4;
+  border:none;
+  padding: 10px;
+  margin-top:10px;
+}
+
+.login-form button:hover {
+  background: #e83a3a;
 }
 
 .login-form .form-control{
   display: block;
-  font-size: 30px;
+  font: inherit;
   width:80%;
   margin: 10px 0;
   padding: 10px;

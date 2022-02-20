@@ -39,6 +39,7 @@ const addUser= asyncHandler (async (req, res) => {
 })
 
 const loginUser= asyncHandler (async (req, res) => {
+  console.log('arrived')
   const input= req.body
   const user= await User.findOne({username: input.username})
   if(!user){
