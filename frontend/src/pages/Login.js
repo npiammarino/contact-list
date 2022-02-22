@@ -16,20 +16,19 @@ const Login= ({loginUser}) =>{
   const onSubmit= async (e) => {
     e.preventDefault()
 
-    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/users/login`, {
+    const res= await fetch(`http://localhost:3000/api/users/login`, {
       method: 'POST',
       headers: {
-        'Content-type': 'application/json'
+        'Content-type': 'application/json',
       },
-      body: {
-        username,
-        password
-      }
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      })
     })
 
-    res.catch(err => console.log(err))
-
-    console.log(res.json())
+    const data= await res.json()
+    loginUser(data.token)
     resetFields()
     navigate('/')
   }

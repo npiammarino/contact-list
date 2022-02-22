@@ -13,9 +13,8 @@ connectDB()
 //these execute in order
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
+
 app.use(cors())
-
-
 app.use('/api/contacts', require('./routes/contactRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 

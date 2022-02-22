@@ -43,9 +43,9 @@ const App= () => {
       method : 'POST',
       headers: {
         'Content-type': 'application/json',
-        'authorization': `Bearer ${userToken}`,
+        'authorization': `Bearer ${userToken}`
       },
-      body: JSON.stringify(contact),
+      body: JSON.stringify(contact)
     })
 
     const newContact= await res.json()

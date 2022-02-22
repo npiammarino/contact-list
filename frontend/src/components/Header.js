@@ -15,7 +15,7 @@ const Header= ({user, logoutUser}) => {
   }
 
   const onAdd= () => {
-    
+
   }
 
   return(
@@ -27,7 +27,6 @@ const Header= ({user, logoutUser}) => {
               <FaRegAddressBook /> Add Contact
             </button>
             <div className="center-split">
-              <h2>{user}</h2>
             </div>
             <button className="btn" onClick={onLogout}>
               <FaSignOutAlt /> Logout

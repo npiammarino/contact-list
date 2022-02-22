@@ -5,21 +5,10 @@ import Header from './components/Header'
 import Login from './pages/Login'
 
 const App= () => {
-  const [user, setUser]= useState('kljlk')
+  const [user, setUser]= useState()
 
-  const loginUser= async (username, password) => {
-    console.log("called")
-    const res= await fetch(`http://localhost:${process.env.REACT_APP_SERVER_PORT}/api/users/login`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json'
-      },
-      body: {
-        username,
-        password
-      }
-    })
-    console.log(res.json())
+  const loginUser= async (token) => {
+    setUser(token)
   }
 
   const logoutUser= () => {
