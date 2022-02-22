@@ -19,6 +19,10 @@ button:active{
 .container{
   width:100%;
   text-align: center;
+  background-image: url('./images/books.jpg');
+  height: 100vh;
+  background-size:cover;
+  background-position: center;
 }
 
 #header{
@@ -56,10 +60,6 @@ button:active{
 }
 
 #main{
-  background-image: url('./images/books.jpg');
-  height: 100vh;
-  background-size:cover;
-  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
