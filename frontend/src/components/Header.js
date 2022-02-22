@@ -18,6 +18,10 @@ const Header= ({user, logoutUser}) => {
 
   }
 
+  const onRegister= () => {
+    navigate('/register')
+  }
+
   return(
       <header id="header">
         {user ?
@@ -40,7 +44,7 @@ const Header= ({user, logoutUser}) => {
             <button className="btn" onClick={onLogin}>
               <FaSignInAlt /> Login
             </button>
-            <button className="btn" onClick="">
+            <button className="btn" onClick={onRegister}>
               <FaUser /> Register
             </button>
           </div>
