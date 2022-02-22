@@ -1,5 +1,5 @@
 import './index.css'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Header from './components/Header'
 import Login from './pages/Login'
@@ -9,6 +9,26 @@ import Dashboard from './pages/Dashboard'
 const App= () => {
   const [user, setUser]= useState()
   const [contacts, setContacts]= useState()
+
+  const fetchContacts= async () => {
+    const res= await fetch(`http://localhost:3000/api/contacts`, {
+      methode: "GET",
+      headers: {
+        "Authorization": `Bearer ${user}`
+      }
+    })
+
+    const data= await res.json()
+    return data
+  }
+
+  useEffect(() => {
+    const getContacts= async () => {
+      const data= await fetchContacts()
+      setContacts(data)
+    }
+    if(user){getContacts()}
+  },[user])
 
   const loginUser= async (token) => {
     setUser(token)

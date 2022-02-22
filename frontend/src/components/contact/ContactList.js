@@ -4,11 +4,9 @@ const ContactList= ({contacts}) => {
 
   return(
     <div id="contact-list">
-      <ol id="contacts">
-        {contacts.forEach((contact) => {
-          <Contact contact={contact} />
-        })}
-      </ol>
+      <ul id="contacts">
+        {contacts.map(contact => <li><Contact contact={contact} /></li>)}
+      </ul>
     </div>
   )
 }
