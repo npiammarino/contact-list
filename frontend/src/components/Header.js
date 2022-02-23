@@ -15,7 +15,7 @@ const Header= ({user, logoutUser}) => {
   }
 
   const onAdd= () => {
-
+    navigate('/addContact')
   }
 
   const onRegister= () => {

@@ -3,6 +3,7 @@
 *{
   margin: 0;
   padding: 0;
+  border-sizing: border-box;
 }
 
 body{
@@ -107,9 +108,38 @@ button:active{
 .login-form .form-control{
   display: block;
   font: inherit;
-  width:80%;
+  width: 80%;
   margin: 10px 0;
   padding: 10px;
   border: 1px solid #a6a6a6;
   border-radius: 15px;
+}
+
+.add-form-container{
+  background-color: #f4f4f4;
+  width: 80vw;
+  display:inline-block;
+  flex-direction:column;
+}
+
+.add-form-container .form-control{
+  width: 45%;
+  display: block;
+  text-align: left;
+}
+
+.add-form-container .form-control input{
+  width: 100%;
+  height: 40px;
+  font: 17px;
+  margin-top:0;
+  margin: 5px;
+  font:inherit;
+}
+
+.add-form-container .form-control label{
+  display:block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+
 }

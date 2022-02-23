@@ -1,48 +1,51 @@
 import {useState} from 'react'
 
-const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
-  const [formData, setFormData]= useState({
-    firstName: '',
-    lastName: '',
-    companyName: '',
-    phone: '',
-    email: '',
-    address: '',
-    city: '',
-    state: '',
-    zip: ''
-  })
-
-  const {firstName, lastName, companyName, phone, email, address, city, state, zip} = formData
+const AddContact= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
+  const [firstName, setFirstName]= useState('')
+  const [lastName, setLastName]= useState('')
+  const [companyName, setCompanyName]= useState('')
+  const [phone, setPhone]= useState('')
+  const [email, setEmail]= useState('')
+  const [address, setAddress]= useState('')
+  const [city, setCity]= useState('')
+  const [state, setState]= useState('')
+  const [zip, setZip]= useState('')
 
   const clearFields= () => {
-    setFormData({
-      firstName: '',
-      lastName: '',
-      companyName: '',
-      phone: '',
-      email: '',
-      address: '',
-      city: '',
-      state: '',
-      zip: ''
-    })
+    setFirstName('')
+    setLastName('')
+    setCompanyName('')
+    setPhone('')
+    setEmail('')
+    setAddress('')
+    setCity('')
+    setState('')
+    setZip('')
+
+    if(editing){onEdit()}
   }
-
-  const onChange= (e) => {
-    e.preventDefault()
-
-    setFormData(prevState => ({...prevState, [e.target.id]: e.target.value}))
+  const updateFields= () => {
+    setLastName(fillContact.lastName)
+    setFirstName(fillContact.firstName)
+    setCompanyName(fillContact.companyName)
+    setPhone(fillContact.phone)
+    setEmail(fillContact.email)
+    setAddress(fillContact.address)
+    setCity(fillContact.city)
+    setState(fillContact.state)
+    setZip(fillContact.zip)
+    onEdit()
   }
-  //(prevState) => ({...prevState,[e.target.name]: e.target.value})
-
   const onSubmit= (e) => {
     e.preventDefault()
 
+    if(!lastName && !companyName){
+      alert("Please provide a last name or a company name.");
+      return;
+    }
     onAdd({firstName, lastName, companyName, phone, email, address, city, state, zip});
     clearFields();
   }
-
   const updateContact= (e) => {
     e.preventDefault()
 
@@ -54,12 +57,8 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
     clearFields();
   }
 
-  const updateFields= () => {
-
-  }
-
   return(
-    <form className='add-form-container' onSubmit={onSubmit}>
+    <form className='add-form' onSubmit={onSubmit}>
 
       {/*first Name */}
       <div className='form-control'>
@@ -67,9 +66,8 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <input
           type='text'
           placeholder='Bob'
-          id= "firstName"
           value={firstName}
-          onChange={onChange}/>
+          onChange={(e) => setFirstName(e.target.value)}/>
       </div>
 
       {/*last name*/}
@@ -77,10 +75,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Last Name</label>
         <input
           type='text'
-          id="lastName"
           placeholder='Robertson'
           value={lastName}
-          onChange={onChange}
+          onChange={(e) => setLastName(e.target.value)}
         />
       </div>
 
@@ -89,10 +86,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Company Name</label>
         <input
           type='text'
-          id='companyName'
           placeholder='BBB LLC'
           value={companyName}
-          onChange={onChange}
+          onChange={(e) => setCompanyName(e.target.value)}
         />
       </div>
 
@@ -101,10 +97,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Phone</label>
         <input
           type='text'
-          id='phone'
           placeholder='1 111 111-1111'
           value={phone}
-          onChange={onChange}
+          onChange={(e) => setPhone(e.target.value)}
         />
       </div>
 
@@ -113,10 +108,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Email</label>
         <input
           type='text'
-          id='email'
           placeholder='bob@robertson.eml'
           value={email}
-          onChange={onChange}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
 
@@ -125,10 +119,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Address</label>
         <input
           type='text'
-          id='address'
           placeholder='12345 Elm Street'
           value={address}
-          onChange={onChange}
+          onChange={(e) => setAddress(e.target.value)}
         />
       </div>
 
@@ -137,10 +130,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>City</label>
         <input
           type='text'
-          id='city'
           placeholder='Bobtown'
           value={city}
-          onChange={onChange}
+          onChange={(e) => setCity(e.target.value)}
         />
       </div>
 
@@ -149,10 +141,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>State</label>
         <input
           type='text'
-          id='state'
           placeholder='OH'
           value={state}
-          onChange={onChange}
+          onChange={(e) => setState(e.target.value)}
         />
       </div>
 
@@ -161,10 +152,9 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
         <label>Zip</label>
         <input
           type='text'
-          id='zip'
           placeholder='12345-6789'
           value={zip}
-          onChange={onChange}
+          onChange={(e) => setZip(e.target.value)}
         />
       </div>
       <div className='form-control'/>
@@ -173,9 +163,23 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
       <input type='submit' value= 'New Contact' className='form-control button btn-block' />
       {/*clear fields*/}
       <input type='button' value= 'Clear' onClick={clearFields} className='form-control button btn-block' />
+      {/*edit contact*/}
+      <input type='button'
+        value= {editing ? 'Cancel' : 'Edit Contact'}
+        onClick={(editing ? clearFields : updateFields)}
+        style= {{background: (editing ? '#e83610' : null)}}
+        className='form-control button btn-block'
+        />
+      {/*update contact*/}
+      <input type='button' value= 'Update Contact' onClick={updateContact}
+        style= {{background: (!editing ? '#a0a1a1' : null)}}
+        className= 'form-control button btn-block'
+        disabled={!editing ? true : false}
+        />
+
     </form>
 
   )
 }
 
-export default AddForm
+export default AddContact
