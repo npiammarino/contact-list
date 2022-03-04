@@ -35,6 +35,10 @@ const App= () => {
     setUser(token)
   }
 
+  const onAdd= (contact) => {
+    setContacts([...contacts, contact])
+  }
+
   const logoutUser= () => {
     setUser(null)
   }
@@ -49,7 +53,7 @@ const App= () => {
               <Route path="/" element={<Dashboard contacts={contacts} user={user} />}/>
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/register" element={<Register loginUser={loginUser} />} />
-              <Route path="/addContact" element={<AddForm  />} />
+              <Route path="/addContact" element={<AddForm  user={user} onAdd={onAdd}/>} />
             </Routes>
           </div>
         </div>

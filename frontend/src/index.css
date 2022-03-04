@@ -3,7 +3,7 @@
 *{
   margin: 0;
   padding: 0;
-  border-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body{
@@ -118,13 +118,12 @@ button:active{
 .add-form-container{
   background-color: #f4f4f4;
   width: 80vw;
-  display:inline-block;
-  flex-direction:column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .add-form-container .form-control{
-  width: 45%;
-  display: block;
+  width: 90%;
   text-align: left;
 }
 
@@ -132,9 +131,12 @@ button:active{
   width: 100%;
   height: 40px;
   font: 17px;
-  margin-top:0;
-  margin: 5px;
+  margin: 0 3px;
+  padding: 2px 3px;
   font:inherit;
+  border-radius: 7px;
+  border-width: 2px;
+  border-color: #e83a3a;
 }
 
 .add-form-container .form-control label{

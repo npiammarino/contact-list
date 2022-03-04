@@ -1,6 +1,7 @@
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
-const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
+const AddForm= ({user, onAdd}) => {
   const [formData, setFormData]= useState({
     firstName: '',
     lastName: '',
@@ -14,6 +15,7 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
   })
 
   const {firstName, lastName, companyName, phone, email, address, city, state, zip} = formData
+  const navigate= useNavigate()
 
   const clearFields= () => {
     setFormData({
@@ -34,24 +36,27 @@ const AddForm= ({onAdd, fillContact, onEdit, editing, onUpdate}) => {
 
     setFormData(prevState => ({...prevState, [e.target.id]: e.target.value}))
   }
-  //(prevState) => ({...prevState,[e.target.name]: e.target.value})
 
-  const onSubmit= (e) => {
+  const onSubmit= async (e) => {
     e.preventDefault()
 
-    onAdd({firstName, lastName, companyName, phone, email, address, city, state, zip});
-    clearFields();
+    const res= await fetch(`http://localhost:3000/api/contacts`, {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${user}`,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    
+    const newContact= await res.json()
+    clearFields()
+    navigate('/')
+    onAdd(newContact)
   }
 
-  const updateContact= (e) => {
-    e.preventDefault()
+  const onUpdate= () => {
 
-    if(!lastName && !companyName){
-      alert("Please provide a last name or a company name.");
-      return;
-    }
-    onUpdate({firstName, lastName, companyName, phone, email, address, city, state, zip});
-    clearFields();
   }
 
   const updateFields= () => {
