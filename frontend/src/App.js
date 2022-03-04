@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import AddContact from './pages/AddContact'
+import UpdateContact from './pages/UpdateContact'
 
 const App= () => {
   const [user, setUser]= useState()
@@ -39,10 +40,16 @@ const App= () => {
     setContacts([...contacts, contact])
   }
 
+  const onUpdate= (contact, newContact) => {
+    const previous= contacts.find(x => x._id != contact._id)
+    setContacts([...previous, newContact])
+  }
+
   const logoutUser= () => {
     setContacts([])
     setUser(null)
   }
+
 
   return(
     <>
@@ -55,6 +62,7 @@ const App= () => {
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/register" element={<Register loginUser={loginUser} />} />
               <Route path="/addContact" element={<AddContact user={user} onAdd={onAdd} />} />
+              <Route path="/UpdateContact" element={<UpdateContact user={user} onUpdate={onUpdate} />} />
             </Routes>
           </div>
         </div>
