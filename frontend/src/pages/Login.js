@@ -34,29 +34,34 @@ const Login= ({loginUser}) =>{
   }
 
   return(
-    <div className="login-container">
+    <div className="form-container log-form">
       <h1><FaSignInAlt /> Login</h1>
-      <form className="login-form" onSubmit={onSubmit}>
-        <input
+      <form className="form-fields" onSubmit={onSubmit}>
+        <div className= 'form-control'>
+          <label>Username</label>
+          <input
           type="text"
-          className= "form-control"
+          className= "form-text"
           id="username"
           name= "username"
           value={username}
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
           />
-        <input
+        </div>
+        <div className= 'form-control'>
+          <label>Password</label>
+          <input
           type="text"
-          className= "form-control"
+          className= "form-text"
           id="password"
           name= "password"
           value={password}
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
           />
-
-          <button type="submit" className= "btn">Submit</button>
+        </div>
+        <button type="submit" className= "btn btn-log">Submit</button>
       </form>
     </div>
   )

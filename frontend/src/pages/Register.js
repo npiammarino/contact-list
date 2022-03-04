@@ -51,38 +51,46 @@ const Register= ({loginUser}) => {
   }
 
   return (
-    <div className="login-container">
+    <div className="form-container log-form">
       <h1><FaUser /> Register</h1>
-      <form className="login-form" onSubmit={onSubmit}>
-        <input
-          type="text"
-          className= "form-control"
-          id="username"
-          name= "username"
-          value={username}
-          placeholder="Username"
-          onChange={onChange}
-          />
-        <input
-          type="text"
-          className= "form-control"
-          id="password"
-          name= "password"
-          value={password}
-          placeholder="Password"
-          onChange={onChange}
-          />
-        <input
-          type="text"
-          className= "form-control"
-          id="password2"
-          name= "password2"
-          value={password2}
-          placeholder="Confirm password"
-          onChange={onChange}
-          />
-
-          <button type="submit" className= "btn">Submit</button>
+      <form className="form-fields" onSubmit={onSubmit}>
+        <div className='form-control'>
+          <label>Username</label>
+          <input
+            type="text"
+            className= "form-text"
+            id="username"
+            name= "username"
+            value={username}
+            placeholder="Username"
+            onChange={onChange}
+            />
+        </div>
+        <div className='form-control'>
+          <label>Password</label>
+          <input
+            type="text"
+            className= "form-text"
+            id="password"
+            name= "password"
+            value={password}
+            placeholder="Password"
+            onChange={onChange}
+            />
+        </div>
+        <div className='form-control'>
+          <label>Confirm Password</label>
+          <input
+            type="text"
+            className= "form-text"
+            id="password2"
+            name= "password2"
+            value={password2}
+            placeholder="Confirm password"
+            onChange={onChange}
+            />
+        </div>
+        <button type="submit" className= "btn btn-log">Submit</button>
       </form>
     </div>
   )
