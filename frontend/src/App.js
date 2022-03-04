@@ -13,7 +13,7 @@ const App= () => {
 
   const fetchContacts= async () => {
     const res= await fetch(`http://localhost:3000/api/contacts`, {
-      methode: "GET",
+      method: "GET",
       headers: {
         "Authorization": `Bearer ${user}`
       }
@@ -40,6 +40,7 @@ const App= () => {
   }
 
   const logoutUser= () => {
+    setContacts([])
     setUser(null)
   }
 
