@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
-import AddForm from './components/contact/AddForm'
+import AddContact from './pages/AddContact'
 
 const App= () => {
   const [user, setUser]= useState()
@@ -54,7 +54,7 @@ const App= () => {
               <Route path="/" element={<Dashboard contacts={contacts} user={user} />}/>
               <Route path="/login" element={<Login loginUser={loginUser} />} />
               <Route path="/register" element={<Register loginUser={loginUser} />} />
-              <Route path="/addContact" element={<AddForm  user={user} onAdd={onAdd}/>} />
+              <Route path="/addContact" element={<AddContact user={user} onAdd={onAdd} />} />
             </Routes>
           </div>
         </div>
